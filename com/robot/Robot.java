@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 public class Robot extends JFrame {
 
-    public Donut() {
+    public Robot() {
 
         initUI();
     }
@@ -25,7 +25,7 @@ public class Robot extends JFrame {
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-            Donut ex = new Donut();
+            Robot ex = new Robot();
             ex.setVisible(true);
         });
     }
