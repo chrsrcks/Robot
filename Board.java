@@ -30,7 +30,7 @@ public class Board extends JPanel {
 
     private void loadImage() {
 
-        ImageIcon ii = new ImageIcon("robot.png");
+        ImageIcon ii = new ImageIcon("src/robot.png");
         robot = ii.getImage();
     }
 
