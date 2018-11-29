@@ -1,5 +1,3 @@
-package com.robot;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
