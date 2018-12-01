@@ -8,7 +8,8 @@ public class Board extends JPanel {
 
     private int width = 640;
     private int height = 480;
-    private Image robot;
+    private Image img;
+    private Player player;
 
     public Board() {
 
@@ -16,7 +17,9 @@ public class Board extends JPanel {
         setBackground(Color.DARK_GRAY);
 
         loadImage();
-
+        int imgW = img.getWidth(this);
+        int imgH =  img.getHeight(this);
+        player = new Player(width/2,height/2,img,imgW,imgH);
     }
 
     @Override
@@ -25,23 +28,16 @@ public class Board extends JPanel {
         setBackground(Color.DARK_GRAY);
 
         drawDonut(g);
-        drawRobot(g);
+        //drawRobot(g);
+        player.draw(g);
     }
 
     private void loadImage() {
 
         ImageIcon ii = new ImageIcon("src/robot.png");
-        robot = ii.getImage();
+        img = ii.getImage();
     }
 
-    private void drawRobot(Graphics g) {
-
-        int robotW = robot.getWidth(this);
-        int robotH =  robot.getHeight(this);
-
-        g.drawImage(robot, width/2-(robotW/2), height/2-(robotH/2), null);
-
-    }
 
     private void drawDonut(Graphics g) {
 

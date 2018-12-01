@@ -1,9 +1,9 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
-public class Robot extends JFrame {
+public class Main extends JFrame {
 
-    public Robot() {
+    public Main() {
 
         initUI();
     }
@@ -11,10 +11,10 @@ public class Robot extends JFrame {
     private void initUI() {
 
         add( new Board() ); // Here we put the Board to the center of the JFrame container.
-        pack();
+        pack(); // set the size of this.JFrame to his child JPanel "Board"
         //setResizable(false);
 
-        setTitle("Donut");
+        setTitle("Robot");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
@@ -22,7 +22,7 @@ public class Robot extends JFrame {
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-            Robot ex = new Robot();
+            Main ex = new Main();
             ex.setVisible(true);
         });
     }
