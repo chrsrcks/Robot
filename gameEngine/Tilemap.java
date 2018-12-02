@@ -7,10 +7,15 @@ public class Tilemap {
 
     private final int width;
     private final int height;
+    private final int tileize;
+    private boolean debug=true;
+    // TODO private Image[] images;
 
-    public Tilemap(int _w, int _h) {
+    public Tilemap(int _w, int _h, int _s) { // TODO Image[] _i
         this.width = _w;
         this.height = _h;
+        this.tileize = _s;
+        // TODO this.images = _i;
     }
 
     /*public Tilemap(JPanel parent) {
@@ -32,13 +37,15 @@ public class Tilemap {
 
         g2d.setStroke(new BasicStroke(1));
 
-        for (int y = 0; y < (this.height/50); y++) {
-            for (int x = 0; x < (this.width/50); x++) {
+        for (int y = 0; y < (this.height/this.tileize)+1; y++) {
+            for (int x = 0; x < (this.width/this.tileize)+1; x++) {
                 g2d.setColor(Color.gray);
-                g2d.drawRect(x*50, y*50, 50, 50);
-                g2d.setColor(Color.red);
-                g2d.drawString("x: "+ x +" y: "+ y,x*50, y*50+20);
-                g2d.drawString(" index: "+ (y*(this.width/50)+x),x*50, y*50+40);
+                g2d.drawRect(x*this.tileize, y*this.tileize, this.tileize, this.tileize);
+                if (this.debug) {
+                    g2d.setColor(Color.red);
+                    g2d.drawString(" x: " + x + " y: " + y, x * this.tileize, y * this.tileize + 20);
+                    g2d.drawString(" index: " + (y * (this.width / this.tileize) + x), x * this.tileize, y * this.tileize + 40);
+                }
             }
         }
 

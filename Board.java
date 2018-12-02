@@ -33,7 +33,7 @@ public class Board extends JPanel implements Runnable {
         int imgH =  img.getHeight(this);
         player = new Player(width/2,height/2,img,imgW,imgH,2);
 
-        tilemap = new Tilemap(width, height);
+        tilemap = new Tilemap(width, height, 100);
 
     }
 
