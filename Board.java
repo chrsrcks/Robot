@@ -1,4 +1,5 @@
 import gameEngine.Player;
+import gameEngine.Tilemap;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -17,6 +18,7 @@ public class Board extends JPanel implements Runnable {
     private int height = 480;
     private Image img;
     private Player player;
+    private Tilemap tilemap;
     private boolean pause=false;
 
     public Board() {
@@ -30,6 +32,8 @@ public class Board extends JPanel implements Runnable {
         int imgW = img.getWidth(this);
         int imgH =  img.getHeight(this);
         player = new Player(width/2,height/2,img,imgW,imgH,2);
+
+        tilemap = new Tilemap(width, height);
 
     }
 
@@ -45,8 +49,8 @@ public class Board extends JPanel implements Runnable {
     public void paintComponent(Graphics g) { // draw loop
         super.paintComponent(g);
 
-        drawDonut(g);
-
+        //drawDonut(g);
+        tilemap.draw(g);
         player.draw(g);
 
         Toolkit.getDefaultToolkit().sync();
