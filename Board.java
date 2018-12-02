@@ -1,35 +1,90 @@
+import gameEngine.Player;
+
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements Runnable {
 
+    private final int DELAY  = 10;
+    private Thread animator;
     private int width = 640;
     private int height = 480;
     private Image img;
     private Player player;
+    private boolean pause=false;
 
     public Board() {
 
+        setFocusable(true);
+        addKeyListener(new Input());
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.DARK_GRAY);
 
         loadImage();
         int imgW = img.getWidth(this);
         int imgH =  img.getHeight(this);
-        player = new Player(width/2,height/2,img,imgW,imgH);
+        player = new Player(width/2,height/2,img,imgW,imgH,2);
+
+    }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+
+        animator = new Thread(this);
+        animator.start();
     }
 
     @Override
     public void paintComponent(Graphics g) { // draw loop
         super.paintComponent(g);
-        setBackground(Color.DARK_GRAY);
 
         drawDonut(g);
-        //drawRobot(g);
+
         player.draw(g);
+
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+    @Override
+    public void run() {
+
+        long beforeTime, timeDiff, sleep;
+
+        beforeTime = System.currentTimeMillis();
+
+        while (true) {
+
+            update();
+            repaint();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = DELAY - timeDiff;
+
+            if (sleep < 0)  sleep = 2;
+
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+
+                String msg = String.format("Thread interrupted: %s", e.getMessage());
+                JOptionPane.showMessageDialog(this, msg, "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+            beforeTime = System.currentTimeMillis();
+        }
+    }
+
+    private void update() {
+
+        player.update();
     }
 
     private void loadImage() {
@@ -67,4 +122,21 @@ public class Board extends JPanel {
             g2d.draw(at.createTransformedShape(e));
         }
     }
+
+
+    private class Input extends KeyAdapter {
+
+        @Override
+        public void keyReleased(KeyEvent e){
+            player.keyReleased(e);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e){
+            player.keyPressed(e);
+        }
+
+    }
+
+
 }
