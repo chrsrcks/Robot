@@ -8,7 +8,7 @@ public class Tilemap {
     private final int width;
     private final int height;
     private final int tileize;
-    private boolean debug=true;
+    public boolean debug=true;
     // TODO private Image[] images;
 
     public Tilemap(int _w, int _h, int _s) { // TODO Image[] _i

@@ -13,8 +13,6 @@ public class Player extends GameObject {
 
         int key = e.getKeyCode();
 
-        System.out.println(key);
-
         if (key == KeyEvent.VK_A) { // left
             this.dx = -1;
         } else if (key == KeyEvent.VK_D) { // right

@@ -130,14 +130,21 @@ public class Board extends JPanel implements Runnable {
 
     private class Input extends KeyAdapter {
 
-        @Override
-        public void keyReleased(KeyEvent e){
-            player.keyReleased(e);
-        }
+        private boolean strgHold;
 
         @Override
         public void keyPressed(KeyEvent e){
             player.keyPressed(e);
+            int key = e.getKeyCode();
+            if (key == KeyEvent.VK_CONTROL) strgHold = true;
+            if (key == KeyEvent.VK_D && strgHold) tilemap.debug = !tilemap.debug;
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e){
+            player.keyReleased(e);
+            int key = e.getKeyCode();
+            if (key == KeyEvent.VK_CONTROL) strgHold = false;
         }
 
     }
