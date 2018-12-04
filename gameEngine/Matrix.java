@@ -7,7 +7,7 @@ public class Matrix {
     protected final int width;
     protected final int height;
     protected int tileize;
-    private boolean debug=true;
+    public boolean debug=true;
 
     public Matrix(int _w, int _h, int _s) {
         this.width = _w;
