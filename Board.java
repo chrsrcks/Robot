@@ -19,6 +19,7 @@ public class Board extends JPanel implements Runnable {
     private Image img;
     private Player player;
     private Tilemap tilemap;
+    private Image tile;
     private boolean pause=false;
 
     public Board() {
@@ -26,14 +27,14 @@ public class Board extends JPanel implements Runnable {
         setFocusable(true);
         addKeyListener(new Input());
         setPreferredSize(new Dimension(width, height));
-        setBackground(Color.DARK_GRAY);
+        setBackground(Color.BLACK);
 
         loadImage();
         int imgW = img.getWidth(this);
         int imgH =  img.getHeight(this);
         player = new Player(width/2,height/2,img,imgW,imgH,2);
 
-        tilemap = new Tilemap(width, height, 100);
+        tilemap = new Tilemap(width, height,64, new Image[]{tile});
 
     }
 
@@ -50,7 +51,8 @@ public class Board extends JPanel implements Runnable {
         super.paintComponent(g);
 
         //drawDonut(g);
-        tilemap.draw(g);
+        tilemap.drawTiles(g);
+        //tilemap.draw(g);
         player.draw(g);
 
         Toolkit.getDefaultToolkit().sync();
@@ -93,8 +95,10 @@ public class Board extends JPanel implements Runnable {
 
     private void loadImage() {
 
-        ImageIcon ii = new ImageIcon("src/robot.png");
+        ImageIcon ii = new ImageIcon("src/assets/robot_64.png");
         img = ii.getImage();
+        ii = new ImageIcon("src/assets/platform.png");
+        tile = ii.getImage();
     }
 
 
