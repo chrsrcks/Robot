@@ -15,7 +15,7 @@ public class Board extends JPanel implements Runnable {
     private final int DELAY  = 10;
     private Thread animator;
     private int width = 640;
-    private int height = 480;
+    private int height = 448;
     private Image img;
     private Player player;
     private Tilemap tilemap;
@@ -34,7 +34,7 @@ public class Board extends JPanel implements Runnable {
         int imgH =  img.getHeight(this);
         player = new Player(width/2,height/2,img,imgW,imgH,2);
 
-        tilemap = new Tilemap(width, height,64, new Image[]{tile});
+        tilemap = new Tilemap(10, 7,64, new Image[]{tile});
 
     }
 
@@ -52,8 +52,9 @@ public class Board extends JPanel implements Runnable {
 
         //drawDonut(g);
         tilemap.drawTiles(g);
-        //tilemap.draw(g);
         player.draw(g);
+
+        tilemap.drawDebug(g);
 
         Toolkit.getDefaultToolkit().sync();
     }
