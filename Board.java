@@ -20,6 +20,7 @@ public class Board extends JPanel implements Runnable {
     private Player player;
     private Tilemap tilemap;
     private Image tile;
+    int[][] starPos;
     private boolean pause=false;
 
     public Board() {
@@ -36,6 +37,13 @@ public class Board extends JPanel implements Runnable {
 
         tilemap = new Tilemap(10, 7,64, new Image[]{tile});
 
+        starPos = new int[20][2];
+        for (int i = 0; i < starPos.length; i++) {
+
+            starPos[i][0] = (int) (Math.random() * width);
+            starPos[i][1] = (int) (Math.random() * height);
+        }
+
     }
 
     @Override
@@ -44,20 +52,7 @@ public class Board extends JPanel implements Runnable {
 
         animator = new Thread(this);
         animator.start();
-    }
-
-    @Override
-    public void paintComponent(Graphics g) { // draw loop
-        super.paintComponent(g);
-
-        //drawDonut(g);
-        tilemap.drawTiles(g);
-        player.draw(g);
-
-        tilemap.drawDebug(g);
-
-        Toolkit.getDefaultToolkit().sync();
-    }
+    } // start new thread
 
     @Override
     public void run() {
@@ -87,23 +82,35 @@ public class Board extends JPanel implements Runnable {
 
             beforeTime = System.currentTimeMillis();
         }
-    }
+    } // run update & repaint
 
     private void update() {
-
         player.update();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        drawStars(g);
+        tilemap.drawTiles(g);
+        player.draw(g);
+
+        tilemap.drawDebug(g);
+
+        Toolkit.getDefaultToolkit().sync();
     }
 
     private void loadImage() {
 
-        ImageIcon ii = new ImageIcon("src/assets/robot_64.png");
+        ImageIcon ii = new ImageIcon("src/assets/robot.png");
         img = ii.getImage();
         ii = new ImageIcon("src/assets/platform.png");
         tile = ii.getImage();
     }
 
 
-    private void drawDonut(Graphics g) {
+    private void drawStars(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -117,19 +124,13 @@ public class Board extends JPanel implements Runnable {
         g2d.setRenderingHints(rh);
 
         Dimension size = getSize();
-        double w = size.getWidth();
-        double h = size.getHeight();
+        for (int i = 0; i < starPos.length; i++) {
 
-        Ellipse2D e = new Ellipse2D.Double(0, 0, 80, 130);
-        g2d.setStroke(new BasicStroke(1));
-        g2d.setColor(Color.gray);
-
-        for (double deg = 0; deg < 360; deg += 5) {
-            AffineTransform at
-                    = AffineTransform.getTranslateInstance(w/2, h/2);
-            at.rotate(Math.toRadians(deg));
-            g2d.draw(at.createTransformedShape(e));
+            g2d.setColor(Color.white);
+            g2d.setStroke(new BasicStroke(i % 4));
+            g2d.drawLine(starPos[i][0], starPos[i][1], starPos[i][0], starPos[i][1]);
         }
+
     }
 
 
