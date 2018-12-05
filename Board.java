@@ -1,18 +1,15 @@
 import gameEngine.Player;
 import gameEngine.Tilemap;
-
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements Runnable {
 
-    private final int DELAY  = 10;
+    private final int DELAY = 10;
     private Thread animator;
     private int width = 640;
     private int height = 448;
@@ -39,7 +36,6 @@ public class Board extends JPanel implements Runnable {
 
         starPos = new int[20][2];
         for (int i = 0; i < starPos.length; i++) {
-
             starPos[i][0] = (int) (Math.random() * width);
             starPos[i][1] = (int) (Math.random() * height);
         }
@@ -123,12 +119,11 @@ public class Board extends JPanel implements Runnable {
 
         g2d.setRenderingHints(rh);
 
-        Dimension size = getSize();
         for (int i = 0; i < starPos.length; i++) {
 
             g2d.setColor(Color.white);
             g2d.setStroke(new BasicStroke(i % 4));
-            g2d.drawLine(starPos[i][0], starPos[i][1], starPos[i][0], starPos[i][1]);
+            g2d.drawLine(starPos[i][0], starPos[i][1], starPos[i][0], starPos[i][1]); // draw point
         }
 
     }

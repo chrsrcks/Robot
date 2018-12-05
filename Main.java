@@ -12,7 +12,7 @@ public class Main extends JFrame {
 
         add( new Board() ); // Here we put the Board to the center of the JFrame container.
         pack(); // set the size of this.JFrame to his child JPanel "Board"
-        //setResizable(false);
+        setResizable(false);
 
         setTitle("Robot");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
